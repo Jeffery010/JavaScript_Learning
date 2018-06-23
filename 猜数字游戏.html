@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Big Ji Big Li</title>
+    <script>
+        var number = Math.round(Math.random() * 100)
+        while(true) {
+            var answer = prompt("Guess A Number Between 1 and 100:");
+            answer = parseInt(answer);
+            if (answer > number) {
+                alert("Too Big.");
+            }
+            if (answer < number) {
+                alert("Too Small.");
+            }
+            if (answer == number) {
+                alert("Congrats, you are right!");
+                break;
+            }
+        }
+    </script>
+</head>
+<body bgcolor="aaaaff">
+    <h1> Guess A Number</h1>
+</body>
+</html>
+    

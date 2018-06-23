@@ -1,0 +1,89 @@
+<html>
+<body bgcolor="#aaffaa">
+    <h1> Click/Drag To Draw Advanced </h1>
+    <h4> Dictated to my java script teacher, Kevin </h4>
+    <canvas id="img" width="800" height="500" onmousedown="on_mousedown(event)" onmouseup = "on_mouseup(event)" onmousemove="draw(event)"> </canvas>
+    <script>
+    var isclicked = false;
+    function on_mouseup(e){
+        isclicked = false;
+    }
+    function on_mousedown(e) {
+        isclicked = true;
+    }
+var balls = [ ];
+setInterval( animate, 36 );
+
+class ball {
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
+        this.color=randcolor();
+        this.size = 12;
+        this.dx = Math.round(Math.random()*10-5);
+        this.dy = Math.round(Math.random()*10-5);
+        if (this.dx == 0){
+            this.dx = 1;
+        }
+        if (this.dy == 0){
+            this.dy = 1;
+        }
+    }
+    draw(){
+        var canvas = document.getElementById("img");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = this.color + "33";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#000000";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+    update(){
+        this.x += this.dx;
+        this.y += this.dy;
+        if (this.x <= 12 || this.x >= 800 - 12){
+            this.dx = -this.dx;
+        }
+        if (this.y <= 12 || this.y >= 500 - 12){
+            this.dy = -this.dy;
+        }
+    }
+}
+    function randcolor() {
+        var r = Math.round(Math.random() * 240 +16);
+        var g = Math.round(Math.random() * 240 +16);
+        var b = Math.round(Math.random() * 240 +16);
+        var color = "#" + r.toString(16) + g. toString(16) + b.toString(16);
+        return color;
+    }
+    function draw(e){
+        if (isclicked == false){
+            return;
+        }
+        var canvas = document.getElementById("img");
+        var ctx = canvas.getContext("2d");
+        var rect = canvas.getBoundingClientRect();
+        var posx = e.clientX - rect.left;
+        var posy = e.clientY - rect.top
+        var newball = new ball(posx, posy);
+        newball.draw();
+        balls.push( newball );
+    }
+
+    function animate() {
+        var canvas = document.getElementById("img");
+        var ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height );
+        for (var a = 0; a < balls.length ; a++) {
+            balls[ a ].update();
+            balls[ a ].draw();
+        }
+    }
+    </script>
+    
+</body>
+</html>
+    
